@@ -8,113 +8,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvsmall"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end|center"
+            android:text="small number"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/tvsrc"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:textSize="30sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/change_from"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tvwordsrc"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/colorPrimary"
-                    android:gravity="center"
-                    android:text="@string/First_currency"
-                    android:textSize="30dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/tvmain"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnchange"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Change" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvdst"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="30sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/change_to"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/tvworddst"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/Second_currency"
-                    android:textSize="30dp" />
-            </LinearLayout>
-
-        </LinearLayout>
+            android:text="Main Number"
+            android:textSize="36sp"
+            android:gravity="end|center"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_weight="2"
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
 
@@ -139,11 +59,18 @@
                 android:text="del" />
 
             <Button
-                android:id="@+id/btnextra"
+                android:id="@+id/btnmnspls"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Button" />
+                android:text="+/-" />
+
+            <Button
+                android:id="@+id/btndiv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="/" />
         </LinearLayout>
 
         <LinearLayout
@@ -172,6 +99,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="9" />
+
+            <Button
+                android:id="@+id/btnmul"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="*" />
         </LinearLayout>
 
         <LinearLayout
@@ -200,6 +134,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="6" />
+
+            <Button
+                android:id="@+id/btnmns"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="-" />
 
         </LinearLayout>
 
@@ -230,6 +171,13 @@
                 android:layout_weight="1"
                 android:text="3" />
 
+            <Button
+                android:id="@+id/btnpls"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="+" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -239,11 +187,11 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnweb"
+                android:id="@+id/btnzeros"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="chart" />
+                android:text="00" />
 
             <Button
                 android:id="@+id/btn0"
@@ -258,6 +206,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="." />
+
+            <Button
+                android:id="@+id/btneql"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="=" />
 
         </LinearLayout>
     </LinearLayout>

@@ -11,9 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnDot, btnc, btndel;
-    Button btnchange;
-    TextView tvsrc, tvdst, tvwordsrc, tvworddst;
+    Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnDot, btnc, btndel,btnpls, btnmns, btndiv, btnmul, btnzeros, btnmnspls, btneql;
+    TextView tvmain, tvsmall;
 
     boolean isdotadded;
     int MAX_LENGTH;
@@ -24,10 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         MAX_LENGTH = 10;
         isdotadded = false;
-        first_currency_to_second = (float) 16.6;
 
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);
@@ -44,34 +41,36 @@ public class MainActivity extends AppCompatActivity {
         btnc = findViewById(R.id.btnc);
         btndel = findViewById(R.id.btndel);
 
-        btnchange = findViewById(R.id.btnchange);
+        btnpls = findViewById(R.id.btnpls);
+        btnmns = findViewById(R.id.btnmns);
+        btndiv = findViewById(R.id.btndiv);
+        btnmul = findViewById(R.id.btnmul);
+        btnzeros = findViewById(R.id.btnzeros);
+        btnmnspls = findViewById(R.id.btnmnspls);
+        btneql = findViewById(R.id.btneql);
 
-        tvsrc = findViewById(R.id.tvsrc);
-        tvdst = findViewById(R.id.tvdst);
-        tvwordsrc = findViewById(R.id.tvwordsrc);
-        tvworddst = findViewById(R.id.tvworddst);
+        tvmain = findViewById(R.id.tvmain);
+        tvsmall = findViewById(R.id.tvsmall);
 
-        tvsrc.setText("0");
-        tvdst.setText("0");
+        tvmain.setText("");
+        tvsmall.setText("");
 
         View.OnClickListener numbersListner = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Button temp = (Button) view;
                 String s = temp.getText().toString();
-                String total = tvsrc.getText().toString();
+                String total = tvmain.getText().toString();
 
                 if (total.equals("0")) { //if number is already zero (empty)
                     total = s;
-                    tvsrc.setText(total);
-                    calc();
+                    tvmain.setText(total);
                     return;
                 }
                 //any other digit
                 if (total.length() < MAX_LENGTH) {
                     total += s;
-                    tvsrc.setText(total);
-                    calc();
+                    tvmain.setText(total);
                 } else
                     Toast.makeText(getApplicationContext(), "Maximum Length reached", Toast.LENGTH_SHORT).show();
 
@@ -90,44 +89,55 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(numbersListner);
         btn0.setOnClickListener(numbersListner);
 
-        btnchange.setOnClickListener(new View.OnClickListener() {
+
+        //TODO listen for the mul div and all others
+
+        btnzeros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvwordsrc.getText().toString().equals("EGP")) {
-                    tvwordsrc.setText(getResources().getString(R.string.First_currency));
-                    tvworddst.setText(getResources().getString(R.string.Second_currency));
-                    calc();
-                } else {
-                    tvwordsrc.setText(getResources().getString(R.string.Second_currency));
-                    tvworddst.setText(getResources().getString(R.string.First_currency));
-                    calc();
+                String total = tvmain.getText().toString();
+
+                if (total.length() == 0 || total.equals("0")) { //if number is already zero (empty)
+                    total = "0";
+                    tvmain.setText(total);
+                    return;
                 }
+                //any other digit
+                else if (total.length() <= MAX_LENGTH - 2) {
+                    total += "00";
+                    tvmain.setText(total);
+                }
+                else if(total.length() < MAX_LENGTH){
+                    total += "0";
+                    tvmain.setText(total);
+                }
+                else
+                    Toast.makeText(getApplicationContext(), "Maximum Length reached", Toast.LENGTH_SHORT).show();
+
             }
         });
 
         btnc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvsrc.setText("0");
+                tvmain.setText("");
+                tvsmall.setText("");
                 isdotadded = false;
-                calc();
             }
         });
 
         btndel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = tvsrc.getText().toString();
+                String s = tvmain.getText().toString();
                 if (s.length() > 1) {
                     if (s.charAt(s.length() - 1) == '.')
                         isdotadded = false;
                     s = s.substring(0, s.length() - 1);
-                    tvsrc.setText(s);
-                    calc();
+                    tvmain.setText(s);
                 } else if (s.length() == 1) {
-                    tvsrc.setText("0");
+                    tvmain.setText("");
                     isdotadded = false;
-                    calc();
                 }
             }
         });
@@ -136,14 +146,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!isdotadded) {
-                    String s = tvsrc.getText().toString();
+                    String s = tvmain.getText().toString();
                     if (s.length() <= MAX_LENGTH - 2) {
                         if (s.equals("0"))
                             s = "0.";
                         else
                             s += ".";
-                        tvsrc.setText(s);
-                        calc();
+                        tvmain.setText(s);
                         isdotadded = true;
                     }
                 } else {
@@ -158,13 +167,13 @@ public class MainActivity extends AppCompatActivity {
      * This function check what is the main word currency to change from
      * it reads what's in the src then make the required calculation to compute the dest
      */
-    void calc() {
-        String s = tvsrc.getText().toString();
-        float n = Float.parseFloat(s);
-        if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.Second_currency)))
-            n = n / first_currency_to_second;
-        else if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.First_currency)))
-            n = n * first_currency_to_second;
-        tvdst.setText(String.format("%.02f", n));
-    }
+//    void calc() {
+//        String s = tvsrc.getText().toString();
+//        float n = Float.parseFloat(s);
+//        if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.Second_currency)))
+//            n = n / first_currency_to_second;
+//        else if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.First_currency)))
+//            n = n * first_currency_to_second;
+//        tvdst.setText(String.format("%.02f", n));
+//    }
 }
