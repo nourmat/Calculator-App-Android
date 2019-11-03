@@ -14,9 +14,10 @@ public class MainActivity extends AppCompatActivity {
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btnDot, btnc, btndel,btnpls, btnmns, btndiv, btnmul, btnzeros, btnmnspls, btneql;
     TextView tvmain, tvsmall;
 
-    boolean isdotadded;
+    boolean isdotadded, displayed, canchangesign;
     int MAX_LENGTH;
-    float first_currency_to_second;
+    double sum = 0, lastEnteredNumber = 0;
+    char nextop = '+';
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
         MAX_LENGTH = 10;
         isdotadded = false;
+        displayed = false;
+        canchangesign = true;
 
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);
@@ -58,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener numbersListner = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (displayed)
+                    cleartext();
+                canchangesign = false;
+
                 Button temp = (Button) view;
                 String s = temp.getText().toString();
                 String total = tvmain.getText().toString();
@@ -77,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         btn9.setOnClickListener(numbersListner);
         btn8.setOnClickListener(numbersListner);
         btn7.setOnClickListener(numbersListner);
@@ -89,12 +95,79 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(numbersListner);
         btn0.setOnClickListener(numbersListner);
 
+        View.OnClickListener actionListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String btnstr = ((Button) view).getText().toString();
+                String mainstr = tvmain.getText().toString();
 
-        //TODO listen for the mul div and all others
+                if (mainstr.length() != 0) {
+                    if (!canchangesign)
+                        calc();
+                    switch (btnstr) {
+                        case "+":
+                            nextop = '+';
+                            break;
+
+                        case "-":
+                            nextop = '-';
+                            break;
+
+                        case "*":
+                            nextop = '*';
+                            break;
+
+                        case "/":
+                            nextop = '/';
+                            break;
+                    }
+                    String smalltemp = tvsmall.getText().toString();
+                    char lastchar = smalltemp.charAt(smalltemp.length()-1);
+                    if (lastchar == '/' || lastchar == '*' || lastchar == '-' || lastchar == '+')
+                        tvsmall.setText(smalltemp.substring(0,smalltemp.length()-1) + nextop);
+                    else
+                        tvsmall.setText(smalltemp+""+nextop);
+                }else
+                    Toast.makeText(getApplicationContext(),"Empty", Toast.LENGTH_SHORT);
+            }
+        };
+
+        btnpls.setOnClickListener(actionListener);
+        btnmns.setOnClickListener(actionListener);
+        btndiv.setOnClickListener(actionListener);
+        btnmul.setOnClickListener(actionListener);
+
+        btnmnspls.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String mainstr = tvmain.getText().toString();
+                if (mainstr.charAt(0) != '-') //not -
+                    mainstr = "-" + mainstr;
+                else
+                    mainstr = mainstr.substring(1);
+                tvmain.setText(mainstr);
+            }
+        });
+
+
+        btneql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (displayed)
+                    calc2();
+                else if (tvmain.getText().toString().length() > 0) {
+                    calc();
+                    tvsmall.setText(tvsmall.getText().toString() + "" + nextop);
+                }
+            }
+        });
+
 
         btnzeros.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (displayed)
+                    cleartext();
                 String total = tvmain.getText().toString();
 
                 if (total.length() == 0 || total.equals("0")) { //if number is already zero (empty)
@@ -113,22 +186,26 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                     Toast.makeText(getApplicationContext(), "Maximum Length reached", Toast.LENGTH_SHORT).show();
-
             }
         });
 
         btnc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvmain.setText("");
+                cleartext();
                 tvsmall.setText("");
-                isdotadded = false;
+                sum = 0;
             }
         });
 
         btndel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (displayed){
+                    tvmain.setText("");
+                    isdotadded = false;
+                    return;
+                }
                 String s = tvmain.getText().toString();
                 if (s.length() > 1) {
                     if (s.charAt(s.length() - 1) == '.')
@@ -148,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!isdotadded) {
                     String s = tvmain.getText().toString();
                     if (s.length() <= MAX_LENGTH - 2) {
-                        if (s.equals("0"))
+                        if (s.length() == 0)
                             s = "0.";
                         else
                             s += ".";
@@ -163,17 +240,81 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    void cleartext (){
+        tvmain.setText("");
+        isdotadded = false;
+        displayed = false;
+    }
+
     /**
-     * This function check what is the main word currency to change from
-     * it reads what's in the src then make the required calculation to compute the dest
+     * this function will be called and there will be a value in tvmain
      */
-//    void calc() {
-//        String s = tvsrc.getText().toString();
-//        float n = Float.parseFloat(s);
-//        if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.Second_currency)))
-//            n = n / first_currency_to_second;
-//        else if (tvwordsrc.getText().toString().equals(getResources().getString(R.string.First_currency)))
-//            n = n * first_currency_to_second;
-//        tvdst.setText(String.format("%.02f", n));
-//    }
+    void calc() {
+        String valuestr = tvmain.getText().toString();
+        String valuestrsmall = tvsmall.getText().toString();
+        double value = Double.parseDouble(valuestr);
+        lastEnteredNumber = value;
+        Log.d("piv", "calc: " + value);
+        switch (nextop){
+            case '+':
+                sum += value;
+                Log.d("piv", "calc: am in " + sum);
+                break;
+            case '-':
+                sum -= value;
+                break;
+            case '*':
+                sum *= value;
+                break;
+            case '/':
+                if (value == 0) {
+//                    Toast.makeText(getApplicationContext(), "Can't divide by zero", Toast.LENGTH_SHORT);
+//                    Log.d("piv", "calc: can't divide by zero");
+                    tvmain.setText("Can't divide by zero");
+                    displayed = true;
+                    canchangesign = true;
+                    return;
+                }
+                else
+                    sum /= value;
+                break;
+        }
+        tvsmall.setText(valuestrsmall + valuestr);
+        tvmain.setText(""+sum);
+        displayed = true;
+        canchangesign = true;
+    }
+
+    void calc2(){
+        String valuestr = tvmain.getText().toString();
+        double value = Double.parseDouble(valuestr);
+        Log.d("piv", "calc: " + value);
+        switch (nextop){
+            case '+':
+                sum += lastEnteredNumber;
+                Log.d("piv", "calc: am in " + sum);
+                break;
+            case '-':
+                sum -= lastEnteredNumber;
+                break;
+            case '*':
+                sum *= lastEnteredNumber;
+                break;
+            case '/':
+                if (value == 0) {
+//                    Toast.makeText(getApplicationContext(), "Can't divide by zero", Toast.LENGTH_SHORT);
+//                    Log.d("piv", "calc: can't divide by zero");
+                    tvmain.setText("Can't divide by zero");
+                    displayed = true;
+                    canchangesign = true;
+                    return;
+                }
+                else
+                    sum /= lastEnteredNumber;
+                break;
+        }
+        tvmain.setText(""+sum);
+        displayed = true;
+        canchangesign = true;
+    }
 }
