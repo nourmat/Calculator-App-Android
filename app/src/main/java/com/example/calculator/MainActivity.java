@@ -160,6 +160,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String mainstr = tvmain.getText().toString();
+                if (mainstr.length() < 1)
+                    return;
                 if (mainstr.charAt(0) != '-') //not -
                     mainstr = "-" + mainstr;
                 else
@@ -184,7 +186,10 @@ public class MainActivity extends AppCompatActivity {
                             tvsmall.setText(tvmain.getText().toString() + "" + nextop);
                     }
                     else {
-                        tvmain.setText(tvsmall.getText().toString().substring(0, tvsmall.getText().toString().length()-1));
+                        Log.d("piv", "btn eql onClick: oh nooo");
+                        String smallstr = tvsmall.getText().toString();
+                        if (smallstr.length() > 0)
+                            tvmain.setText(smallstr.substring(0, smallstr.length()-1));
                     }
                 }else{
                     cleartext();
