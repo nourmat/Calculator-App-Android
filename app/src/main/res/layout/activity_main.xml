@@ -19,17 +19,17 @@
             android:layout_weight="1"
             android:gravity="end|center"
             android:text="small number"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tvmain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="3"
+            android:gravity="end|center"
             android:text="Main Number"
             android:textSize="36sp"
-            android:gravity="end|center"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,28 +50,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="C" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="C"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btndel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="del" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="del"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btnmnspls"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+/-" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="+/-"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btndiv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="/" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="/"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -85,28 +93,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="7" />
+                android:text="7"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn8"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="8" />
+                android:text="8"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn9"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="9" />
+                android:text="9"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btnmul"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="*" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="*"
+                android:textSize="30sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,28 +133,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="4" />
+                android:text="4"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn5"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="5" />
+                android:text="5"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn6"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="6" />
+                android:text="6"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btnmns"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="-" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="-"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -156,28 +174,33 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="1" />
+                android:text="1"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="2" />
+                android:text="2"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="3" />
+                android:text="3"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btnpls"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="+" />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="+"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -192,28 +215,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="00" />
+                android:text="00"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btn0"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="0" />
+                android:text="0"
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btndot"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="." />
+                android:backgroundTint="@android:color/darker_gray"
+                android:text="."
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/btneql"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="=" />
+                android:backgroundTint="@android:color/holo_orange_dark"
+                android:text="="
+                android:textSize="30sp" />
 
         </LinearLayout>
     </LinearLayout>
